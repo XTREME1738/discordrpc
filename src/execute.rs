@@ -6,7 +6,7 @@ use discord_rich_presence::{
 use std::{
     thread, time::{SystemTime, UNIX_EPOCH}, vec
 };
-use signal_hook::{consts::signal::*, iterator::Signals};
+use signal_hook::{consts::signal::*, iterator::Signals, low_level::exit};
 
 use crate::cli::Cli;
 
@@ -17,9 +17,9 @@ pub fn run(args: Cli) {
     let large_text = args.large_text;
     let small_image = args.small_image;
     let small_text = args.small_text;
-    let button_1_text = args.button_1_text;
+    let mut button_1_text = args.button_1_text;
     let button_1_url = args.button_1_url;
-    let button_2_text = args.button_2_text;
+    let mut button_2_text = args.button_2_text;
     let button_2_url = args.button_2_url;
     let enable_timer = args.enable_time;
 
@@ -69,12 +69,24 @@ pub fn run(args: Cli) {
 
     activity = activity.assets(assets);
 
+	if button_1_text.len() > 31 {
+		println!("{}", "button 1 text is too long, max length is 31 bytes".red());
+		println!("{}", "button 1 will not be added".red());
+		button_1_text = "none".to_string();
+	}
+
     if button_1_text != "none" && button_1_url != "none" {
         println!("{} {}", "button 1 text :".cyan(), button_1_text.yellow());
         println!("{} {}", "button 1 url :".cyan(), button_1_url.yellow());
 
         activity = activity.buttons(vec![activity::Button::new(&button_1_text, &button_1_url)]);
     }
+
+	if button_2_text.len() > 31 {
+		println!("{}", "button 2 text is too long, max length is 31 bytes".red());
+		println!("{}", "button 2 will not be added".red());
+		button_2_text = "none".to_string();
+	}
 
     if button_1_text != "none"
         && button_1_url != "none"
