@@ -6,7 +6,7 @@ use discord_rich_presence::{
 use std::{
     thread, time::{SystemTime, UNIX_EPOCH}, vec
 };
-use signal_hook::{consts::signal::*, iterator::Signals, low_level::exit};
+use signal_hook::{consts::signal::*, iterator::Signals};
 
 use crate::cli::Cli;
 
