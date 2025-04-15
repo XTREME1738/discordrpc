@@ -4,9 +4,9 @@ use discord_rich_presence::{
     DiscordIpc, DiscordIpcClient,
 };
 use std::{
-    time::{SystemTime, UNIX_EPOCH},
-    vec,
+    thread, time::{SystemTime, UNIX_EPOCH}, vec
 };
+use signal_hook::{consts::signal::*, iterator::Signals};
 
 use crate::cli::Cli;
 
@@ -100,4 +100,15 @@ pub fn run(args: Cli) {
     }
 
     client.set_activity(activity).expect("client set activity");
+
+	thread::scope(|s| {
+		s.spawn(|| {
+			let mut signals = Signals::new(&[SIGINT, SIGTERM]).unwrap();
+			for _ in signals.forever() {
+				println!("{}", "Stopping due to signal...".blue());
+				let _ = &client.close().expect("failed to close client");
+				std::process::exit(0);
+			}
+		});
+	});
 }
