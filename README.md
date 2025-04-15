@@ -20,37 +20,14 @@ discordrpc --client-id 942151169185316874 --details 'untypeable nickname' --stat
 
 ## How to install?
 
-### Linux
-Download discordrpc-linux from the [releases page](https://github.com/MedzikUser/discordrpc/releases/latest) and run
-
-    chmod +x discordrpc-linux
-    ./discordrpc-linux
-
-### Arch Linux
-Using yay ([AUR](https://aur.archlinux.org/packages/discordrpc))
-
-    yay -S discordrpc
-
-Alternatively you can add [this repo](https://github.com/archlinux-pkg/packages) and run
-
-    sudo pacman -S discordrpc
-
-### OSX
-Download discordrpc-darwin from the [releases page](https://github.com/MedzikUser/discordrpc/releases/latest) and run
-
-    chmod +x discordrpc-darwin
-    ./discordrpc-darwin
-
-### Windows
-Download discordrpc-windows from the [releases page](https://github.com/MedzikUser/discordrpc/releases/latest) and run
-
-    chmod +x discordrpc-windows
-    ./discordrpc-windows
+> [!NOTE]
+> I do not own the AUR package, that is owned by the original author, who has abandoned the project. I am not responsible for any issues with the AUR package.
 
 ### Compile with Cargo
 Make sure you have the latest version of Rust. Then you can run
-
-    cargo install imgurs
+```sh
+cargo install
+```
 
 ## How do I get a client id?
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
